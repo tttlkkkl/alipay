@@ -4,7 +4,8 @@ import (
 	"crypto"
 	"crypto/tls"
 	"encoding/base64"
-	"encoding/json"
+	"github.com/json-iterator/go"
+	"github.com/smartwalle/alipay/encoding"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -12,9 +13,9 @@ import (
 	"sort"
 	"strings"
 	"time"
-
-	"github.com/smartwalle/alipay/encoding"
 )
+
+var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 type AliPay struct {
 	appId              string
@@ -36,7 +37,7 @@ func New(appId, aliPublicKey, privateKey string, isProduction bool) (client *Ali
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
-	client.Client= &http.Client{Transport: tr}
+	client.Client = &http.Client{Transport: tr}
 	//client.Client = http.DefaultClient
 	if isProduction {
 		client.apiDomain = K_ALI_PAY_PRODUCTION_API_URL

@@ -1,9 +1,5 @@
 package alipay
 
-import (
-	"encoding/json"
-)
-
 type AliPayParam interface {
 	// 用于提供访问的 method
 	APIName() string
